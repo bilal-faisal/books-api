@@ -8,7 +8,6 @@ export async function POST(request: NextRequest) {
       ssl: require,
     });
     const result = await conn.unsafe(`SELECT * FROM clients where clientname = '${req.clientName}' and clientemail = '${req.clientEmail}'`);
-    console.log(result)
     if (result.length === 0) {
       // generate new token, check, save it, and then send response
       let token = Math.floor(Math.random() * 9000000000) + 1000000000;
@@ -17,7 +16,14 @@ export async function POST(request: NextRequest) {
         token = Math.floor(Math.random() * 9000000000) + 1000000000;
         exists = await conn.unsafe(`SELECT * FROM clients where token = ${token}`);
       }
-      const entry = await conn.unsafe(`INSERT INTO clients (token, clientName, clientEmail) VALUES (${token}, '${req.clientName}', '${req.clientEmail}');`);
+
+      // also add client id
+      // select all distinct bearer tokens
+      let countResult = await conn.unsafe(`SELECT COUNT(DISTINCT token) FROM clients;`);
+      let count = +countResult[0]["count"];
+
+      const entry = await conn.unsafe(`INSERT INTO clients (token, clientName, clientEmail, clientId) VALUES (${token}, '${req.clientName}', '${req.clientEmail}', '${++count}');`);
+      // console.log(entry)
       return new NextResponse(JSON.stringify({ token: token }));
 
     } else {
