@@ -6,6 +6,5 @@ export async function GET(request: NextRequest) {
     ssl: require,
   });
   const result = await conn.unsafe("SELECT * FROM books");
-  console.log("backend result", result);
-  return new NextResponse(JSON.stringify(result));
+  return NextResponse.json(result);
 }

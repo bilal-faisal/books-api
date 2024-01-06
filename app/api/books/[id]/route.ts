@@ -10,15 +10,15 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
     if (!isNaN(id)) {
         const result = await conn.unsafe(`SELECT * FROM books WHERE id = ${id}`);
         if (result.length > 0) {
-            return new NextResponse(JSON.stringify(result));
+            return NextResponse.json(result);
         } else {
-            return new NextResponse(JSON.stringify({
-                error: `No book with id ${id}`
-            }));
+            return NextResponse.json({
+                error: `No book exists with id ${id}`
+            });
         }
     } else {
-        return new NextResponse(JSON.stringify({
-            error: "No book with id NaN"
-        }));
+        return NextResponse.json({
+            error: "Book id can only be an integer"
+        });
     }
 }
