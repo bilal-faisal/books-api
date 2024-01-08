@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components{
+    .endpoint-style{
+        @apply font-mono px-2 pt-0.5 pb-1 rounded-md bg-gray-100 
+    }
+}
