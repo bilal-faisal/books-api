@@ -1,7 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Books API
+
+## Overview
+The Books API is a comprehensive solution for book reservation and management. Built with Next.js and PostgreSQL, it offers a range of functionalities from retrieving book lists to managing orders with secure authentication.
+
+## API Base URL
+`https://books-apis.vercel.app/api`
+
+## Endpoints
+
+### Status
+- `GET /status`
+  - Description: Check the API's current status.
+
+### Books
+- `GET /books`
+  - Description: Retrieve a list of available books.
+- `GET /books/:bookId`
+  - Description: Get detailed information about a specific book.
+
+### Authentication
+- `POST /token`
+  - Body Parameters: `clientName`, `clientEmail`
+  - Description: Generate a token for accessing protected routes.
+
+### Orders
+- `GET /orders`
+  - Authorization: Bearer Token
+  - Description: View all book orders.
+- `POST /orders`
+  - Authorization: Bearer Token
+  - Body Parameters: `bookId`, `customerName`
+  - Description: Place a new book order.
+- `GET /orders/:orderId`
+  - Authorization: Bearer Token
+  - Description: View details of a specific order.
+- `PATCH /orders/:orderId`
+  - Authorization: Bearer Token
+  - Body Parameter: `customerName`
+  - Description: Update an existing order.
+- `DELETE /orders/:orderId`
+  - Authorization: Bearer Token
+  - Description: Delete an existing order.
 
 ## Getting Started
-
 First, run the development server:
 
 ```bash
@@ -14,23 +55,8 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+You can start editing the page by modifying `app/page.tsx`.
+You can start editing the route by modifying routes present in `app/api/..`.
 
-[http://localhost:3000/api/hello](http://localhost:3000/api/hello) is an endpoint that uses [Route Handlers](https://beta.nextjs.org/docs/routing/route-handlers). This endpoint can be edited in `app/api/hello/route.ts`.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Deployed on Vercel
+This application is deployed on vercel. You can access it at `https://books-apis.vercel.app`
