@@ -7,9 +7,10 @@ export async function middleware(request: NextRequest) {
 
         const bearerToken = request.headers.get('authorization');
         if (!bearerToken) {
-            return new NextResponse('This endpoint requires bearer token');
+            return NextResponse.json({ "error": 'This endpoint requires bearer token' });
         } else {
             const token = bearerToken?.split(' ')[1];
+            
             // verify token
             const response = await fetch(
                 `http://localhost:3000/api/verifyToken`,
@@ -24,14 +25,13 @@ export async function middleware(request: NextRequest) {
             let data = await response.json();
 
             if (data.status == 'invalid') {
-                return new NextResponse("Invalid Token");
+                return NextResponse.json({ "error": "Invalid Token" });
             }
         }
     }
     return NextResponse.next();
 }
 
-// See "Matching Paths" below to learn more
 export const config = {
     matcher: '/api/:path*',
 }
