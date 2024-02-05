@@ -42,7 +42,7 @@ The Books API is a comprehensive solution for book reservation and management. B
   - Authorization: Bearer Token
   - Description: Delete an existing order.
 
-## Getting Started
+## Test API Locally
 First, run the development server:
 
 ```bash
